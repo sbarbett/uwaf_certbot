@@ -11,6 +11,9 @@ from acme import errors
 from acme import messages
 from acme import standalone
 
+DOAMIN = 'example.com'
+EMAIL = 'fake@example.com'
+
 # Generate a private key on the fly, this is for your account. More on this below.
 acc_pkey = rsa.generate_private_key(public_exponent=65537,key_size=2048,backend=default_backend())
 
@@ -27,7 +30,7 @@ directory = messages.Directory.from_json(net.get('https://acme-staging-v02.api.l
 c = client.ClientV2(directory, net=net)
 
 # Register account and accept terms
-regr = c.new_account(messages.NewRegistration.from_data(email='barbetta_shane@yahoo.com', terms_of_service_agreed=True))
+regr = c.new_account(messages.NewRegistration.from_data(email=EMAIL, terms_of_service_agreed=True))
 
 # Generate another private key
 # ############################
@@ -49,7 +52,7 @@ for line in cert_pkey_bytes.splitlines():
 	print(line.decode('utf-8'))
 
 # Make a CSR (certificate signing request)
-csr_pem = crypto_util.make_csr(cert_pkey_bytes, ['barbetta.me'])
+csr_pem = crypto_util.make_csr(cert_pkey_bytes, [DOMAIN])
 
 # Order your request
 req = c.new_order(csr_pem)
@@ -128,7 +131,7 @@ match_value = "acme-challenge/" + token
 
 {
   "action": RESPOND_WITH,
-  "name": "Certbot barbetta.me",
+  "name": "Certbot " + DOMAIN,
   "responderMatches": [
     {
       "field": URL_PATH,
