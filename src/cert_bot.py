@@ -2,14 +2,12 @@ import josepy as jose
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.backends import default_backend
-from contextlib import contextmanager
 from acme import challenges
 from acme import client
 from acme import crypto_util
 from acme import errors
 from acme import messages
 from acme import standalone
-from typing import Optional
 
 class HTTPChallengeNotFound(Exception):
     pass
