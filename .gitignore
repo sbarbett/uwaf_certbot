@@ -1,0 +1,8 @@
+.env
+.idea
+*.iml
+*.egg-info
+__pycache__
+*.pyc
+/build/*
+/dist/*
